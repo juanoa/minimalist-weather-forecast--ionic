@@ -1,12 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WeatherService } from '../services/weather.service';
+import { Forecast, Main, Weather, Wind } from '../interfaces/interfaces';
+
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+    selector: 'app-home',
+    templateUrl: 'home.page.html',
+    styleUrls: ['home.page.scss']
 })
-export class HomePage {
+export class HomePage implements OnInit {
+    resultado: Forecast = {};
+    temperatura: Main = {};
+    weatherDesc: Weather = {};
+    viento: Wind = {};
 
-  constructor() {}
+    lat: string;
+    lon: string;
 
+    constructor(
+        private weather: WeatherService,
+        private geolocation: Geolocation
+    ) {}
+
+    async ngOnInit() {
+        const location = await this.geolocation
+            .getCurrentPosition()
+            .then(pos => {
+                this.lat = pos.coords.latitude.toString();
+                this.lon = pos.coords.longitude.toString();
+            })
+            .catch(err => console.log(err));
+        this.weather
+            .getForecastNow(this.lat, this.lon)
+            .subscribe((resp: Forecast) => {
+                this.resultado = resp;
+                this.temperatura = resp.main;
+                this.weatherDesc = resp.weather[0];
+                this.viento = resp.wind;
+                console.log(this.resultado);
+            });
+    }
 }
