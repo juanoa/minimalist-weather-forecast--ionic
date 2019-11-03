@@ -18,12 +18,19 @@ export class HomePage implements OnInit {
     lat: string;
     lon: string;
 
+    logicColor = 'light';
+
     constructor(
         private weather: WeatherService,
         private geolocation: Geolocation
     ) {}
 
     async ngOnInit() {
+        const date = new Date();
+        if (date.getHours() > 19 && date.getHours() < 8) {
+            this.logicColor = 'dark';
+        }
+
         const location = await this.geolocation
             .getCurrentPosition()
             .then(pos => {

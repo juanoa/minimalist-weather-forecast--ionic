@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Forecast } from '../interfaces/interfaces';
 
-const apiKey = '74b2236f00cea81355f7bdfaf1a9c22d';
+const apiKey = '';
 
 @Injectable({
     providedIn: 'root'

@@ -1,4 +1,4 @@
-<ion-content color="dark" class="ion-padding">
+<ion-content [color]="logicColor" class="ion-padding">
     <ion-grid>
         <!--City-->
         <ion-row class="ion-text-center">
@@ -21,16 +21,8 @@
         </ion-row>
         <ion-row>
             <ion-col>
-                <img src="../../assets/viento.png">
-                <h3 class="viento">25km/h</h3>
+                <h3 class="viento">💨 {{viento.speed}} km/h</h3>
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-list>
-        <ion-item color="dark" *ngFor="let item of [1,1,1,1,1]">
-            <ion-label>Lunes</ion-label>
-            <ion-label>20º</ion-label>
-            <img class="next-icons" [src]="weatherDesc.icon | weatherIcons" slot="end">
-        </ion-item>
-    </ion-list>
 </ion-content>
